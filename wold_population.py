@@ -13,13 +13,13 @@ pop_3 = {}
 filename = 'population_data.json'
 with open(filename) as f:
     pop_data = json.load(f)
-
+# Построение словаря с данными численности населения.
     for meaning in pop_data:
         if meaning['Year'] == '2010':
             population = int(float(meaning['Value']))
             country_name = meaning['Country Name']
             code = cod_country(country_name)
-
+# группировка стран по 3 уровням насиления
             if code:
                 cc_populations[code] = population
             else:
@@ -32,7 +32,10 @@ with open(filename) as f:
                 else:
                     pop_3[cc] = pop
 
-stail_1 = pygal.style.RotateStyle('#334455')
+
+st = pygal.style.LightColorizedStyle
+stail_1 = pygal.style.RotateStyle('#000099', base_style=st)
+# Изменение цветов стран
 wm = pygal_maps_world.maps.World(style=stail_1)
 wm.title = 'Числинность насиления'
 wm.add('насиление < 1 млд', pop_1)
